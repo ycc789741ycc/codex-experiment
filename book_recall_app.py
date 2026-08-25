@@ -22,7 +22,7 @@ class ForgettingCurveScheduler:
     """Create spaced review dates that follow a practical forgetting-curve pattern."""
 
     def __init__(self, interval_days: Iterable[int] | None = None) -> None:
-        intervals = list(interval_days or DEFAULT_INTERVAL_DAYS)
+        intervals = list(DEFAULT_INTERVAL_DAYS if interval_days is None else interval_days)
         if not intervals:
             raise ValueError("interval_days must include at least one interval")
         if any(day <= 0 for day in intervals):
