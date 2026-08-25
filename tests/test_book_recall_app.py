@@ -22,6 +22,7 @@ def test_scheduler_rejects_explicit_empty_intervals():
     ):
         ForgettingCurveScheduler([])
 
+
 def test_ics_contains_events_for_each_review_date():
     scheduler = ForgettingCurveScheduler([1, 7])
     plan = scheduler.build_plan("Atomic Habits", date(2026, 1, 1))
