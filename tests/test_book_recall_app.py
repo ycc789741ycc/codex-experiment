@@ -1,6 +1,8 @@
 from datetime import date
 from pathlib import Path
 
+import pytest
+
 from book_recall_app import ForgettingCurveScheduler, build_output_path, create_ics
 
 
@@ -13,6 +15,12 @@ def test_scheduler_uses_default_intervals():
     assert plan.review_dates[1].isoformat() == "2026-03-12"
     assert plan.review_dates[-1].isoformat() == "2026-11-04"
 
+
+def test_scheduler_rejects_explicit_empty_intervals():
+    with pytest.raises(
+        ValueError, match="interval_days must include at least one interval"
+    ):
+        ForgettingCurveScheduler([])
 
 def test_ics_contains_events_for_each_review_date():
     scheduler = ForgettingCurveScheduler([1, 7])
